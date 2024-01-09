@@ -28,7 +28,7 @@ const NativeBlastedImage = NativeModules.BlastedImage
 
 const BlastedImageView = requireNativeComponent('BlastedImageView');
 
-const BlastedImage = ({ source, width, onLoad, onError, fallbackSource, height, style, resizeMode, isBackground, children }) => {
+const BlastedImage = ({ source, width, onLoad, onError, fallbackSource, height, style, resizeMode, isBackground, tintColor, children }) => {
   const [error, setError] = useState(false);
 
   if (!source || (!source.uri && typeof source !== 'number')) {
@@ -118,17 +118,17 @@ const BlastedImage = ({ source, width, onLoad, onError, fallbackSource, height, 
     <View style={!isBackground ? viewStyle : null}>
       {isBackground ? (
         <View style={viewStyle}>
-          {renderImageContent(error, source, fallbackSource, adjustedHeight, adjustedWidth, resizeMode)}
+          {renderImageContent(error, source, fallbackSource, adjustedHeight, adjustedWidth, resizeMode, tintColor)}
         </View>
       ) : (
-        renderImageContent(error, source, fallbackSource, adjustedHeight, adjustedWidth, resizeMode)
+        renderImageContent(error, source, fallbackSource, adjustedHeight, adjustedWidth, resizeMode , tintColor)
       )}
       {isBackground && <View style={childrenStyle}>{children}</View>}
     </View>
   );
 };
 
-function renderImageContent(error, source, fallbackSource, adjustedHeight, adjustedWidth, resizeMode) {
+function renderImageContent(error, source, fallbackSource, adjustedHeight, adjustedWidth, resizeMode, tintColor) {
   if (error) {
     if (fallbackSource) { // Error - Fallback specified, use native component
       return (
@@ -159,6 +159,7 @@ function renderImageContent(error, source, fallbackSource, adjustedHeight, adjus
     return (
       <BlastedImageView
         sourceUri={source.uri}
+        tintColor={tintColor}
         width={adjustedWidth}
         height={adjustedHeight}
         resizeMode={resizeMode}
