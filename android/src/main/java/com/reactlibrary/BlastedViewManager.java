@@ -5,6 +5,8 @@ import com.facebook.react.uimanager.SimpleViewManager;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.annotations.ReactProp;
 
+import android.graphics.PorterDuff;
+import android.media.Image;
 import android.widget.ImageView;
 import android.view.View;
 import android.view.ViewOutlineProvider;
@@ -15,6 +17,8 @@ import android.graphics.drawable.Drawable;
 import android.graphics.Rect;
 
 import android.util.Log;
+
+import javax.annotation.Nullable;
 
 
 public class BlastedViewManager extends SimpleViewManager<ImageView> {
@@ -64,6 +68,15 @@ public class BlastedViewManager extends SimpleViewManager<ImageView> {
             view.setScaleType(ImageView.ScaleType.CENTER_CROP); // Default to cover
         }
 
+    }
+
+    @ReactProp(name = "tintColor", customType = "Color")
+    public void setTintColor(ImageView view, @Nullable Integer color) {
+        if (color == null) {
+            view.clearColorFilter();
+        } else {
+            view.setColorFilter(color, PorterDuff.Mode.SRC_IN);
+        }
     }
 
     @ReactProp(name = "width")
