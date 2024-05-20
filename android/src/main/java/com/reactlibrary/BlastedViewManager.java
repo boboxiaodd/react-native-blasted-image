@@ -37,7 +37,7 @@ public class BlastedViewManager extends SimpleViewManager<ImageView> {
 
     @ReactProp(name = "sourceUri")
     public void setSourceUri(ImageView view, String sourceUri) {
-        if (sourceUri != null && !sourceUri.isEmpty()) {
+        if (sourceUri != null && !sourceUri.isEmpty() && view.getContext() != null) {
             Glide.with(view.getContext())
                 .load(sourceUri)
                 .into(view);
