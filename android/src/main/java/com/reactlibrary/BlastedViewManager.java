@@ -93,6 +93,15 @@ public class BlastedViewManager extends SimpleViewManager<ImageView> {
 
     }
 
+    @ReactProp(name = "tintColor", customType = "Color")
+    public void setTintColor(ImageView view, @Nullable Integer color) {
+        if (color == null) {
+            view.clearColorFilter();
+        } else {
+            view.setColorFilter(color, PorterDuff.Mode.SRC_IN);
+        }
+    }
+    
     @ReactProp(name = "width")
     public void setWidth(ImageView view, int width) {
         if (width <= 0) {
