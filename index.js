@@ -43,6 +43,7 @@ const BlastedImage = ({
 	onError, 
 	height, 
 	style, 
+	tintColor,
 	children 
 }) => {
 	const [error, setError] = useState(false);
@@ -148,17 +149,17 @@ const BlastedImage = ({
 	  <View style={!isBackground ? viewStyle : null}>
 		{isBackground ? (
 		  <View style={viewStyle}>
-			{renderImageContent(error, source, fallbackSource, adjustedHeight, adjustedWidth, resizeMode)}
+			{renderImageContent(error, source, fallbackSource, adjustedHeight, adjustedWidth, resizeMode, tintColor)}
 		  </View>
 		) : (
-		  renderImageContent(error, source, fallbackSource, adjustedHeight, adjustedWidth, resizeMode)
+		  renderImageContent(error, source, fallbackSource, adjustedHeight, adjustedWidth, resizeMode, tintColor)
 		)}
 		{isBackground && <View style={childrenStyle}>{children}</View>}
 	  </View>
 	);
 };
 
-function renderImageContent(error, source, fallbackSource, adjustedHeight, adjustedWidth, resizeMode) {
+function renderImageContent(error, source, fallbackSource, adjustedHeight, adjustedWidth, resizeMode, tintColor) {
 	if (error) {
 		if (fallbackSource) { // Error - Fallback specified, use native component
 			return (
@@ -189,6 +190,7 @@ function renderImageContent(error, source, fallbackSource, adjustedHeight, adjus
 		return (
 			<BlastedImageView
 				source={source}
+				tintColor={tintColor}
 				width={adjustedWidth}
 				height={adjustedHeight}
 				resizeMode={resizeMode}
