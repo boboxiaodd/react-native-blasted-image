@@ -17,6 +17,7 @@ declare module 'react-native-blasted-image' {
       height?: number;
       style?: StyleProp<ViewStyle>;
       onLoad?: () => void;
+      tintColor?: ColorValue;
       onError?: (error: Error) => void;
       children?: React.ReactNode;
     }
